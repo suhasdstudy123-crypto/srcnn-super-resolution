@@ -13,6 +13,7 @@ Suhas, B.Tech CSE (AI/ML). Knows ML basics. Wants:
 - After writing each file, a simple explanation he can defend in viva/Q&A.
 - Some functions kept short enough that he could rewrite them himself.
 - Direct, honest tradeoffs. No HTML tags (like <sub>) in explanations.
+- Whenever you give git commands, say in one short plain line what each command does.
 
 ## Setup to replicate (Stanford)
 - Model: SRCNN, 3 conv layers, RGB in/out:
