@@ -21,6 +21,21 @@ def psnr_per_image(pred, target, eps=1e-10):
     return 10 * torch.log10(1.0 / (mse + eps))             # max pixel value is 1, so MAX^2 = 1
 
 
+def ssim_per_image(pred, target):
+    """SSIM for each image in a batch (1 = identical structure). Uses scikit-image.
+
+    SSIM compares local brightness, contrast and structure, so it tracks what humans
+    notice (edges, textures) better than PSNR, which only looks at pixel errors.
+    """
+    from skimage.metrics import structural_similarity
+
+    pred = pred.clamp(0, 1).permute(0, 2, 3, 1).cpu().numpy()     # (N, H, W, C) for scikit-image
+    target = target.permute(0, 2, 3, 1).cpu().numpy()
+    return torch.tensor([
+        structural_similarity(p, t, channel_axis=2, data_range=1.0) for p, t in zip(pred, target)
+    ])
+
+
 def set_seed(seed=42):
     """Make runs repeatable: same split, same initial weights, same shuffling."""
     random.seed(seed)
