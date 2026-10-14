@@ -30,10 +30,14 @@ INTERP = {
 
 
 def load_target(path, crop=800, size=224):
-    """Open one HR image, center crop to crop x crop, resize to size x size."""
+    """Open one HR image, center crop to crop x crop, resize to size x size.
+
+    A few DIV2K train images have a side shorter than 800 px. For those we take
+    the largest centered square that fits (e.g. 648x648) and resize it to 224 the same way.
+    """
     img = Image.open(path).convert("RGB")
     w, h = img.size
-    assert w >= crop and h >= crop, f"{path} is smaller than {crop}x{crop}"
+    crop = min(crop, w, h)
     left, top = (w - crop) // 2, (h - crop) // 2
     img = img.crop((left, top, left + crop, top + crop))
     return img.resize((size, size), Image.BICUBIC)
@@ -56,6 +60,8 @@ def build_cache(img_dir, cache_file, crop=800, size=224):
         return np.load(cache_file)
     paths = sorted(Path(img_dir).glob("*.png"))
     assert paths, f"No PNG files found in {img_dir}"
+    n_small = sum(min(Image.open(p).size) < crop for p in paths)  # reads only the header, fast
+    print(f"{img_dir}: {len(paths)} images, {n_small} smaller than {crop}px (cropped to their short side)")
     arr = np.stack([np.asarray(load_target(p, crop, size)) for p in paths])  # (N, 224, 224, 3) uint8
     cache_file.parent.mkdir(parents=True, exist_ok=True)
     np.save(cache_file, arr)
