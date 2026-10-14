@@ -43,10 +43,14 @@ def load_target(path, crop=800, size=224):
     return img.resize((size, size), Image.BICUBIC)
 
 
-def degrade(target, scale=2, interp="bicubic"):
-    """Make the blurry input: shrink by `scale`, then enlarge back to the original size."""
+def degrade(target, scale=2, interp="bicubic", down="bicubic"):
+    """Make the blurry input: shrink by `scale`, then enlarge back to the original size.
+
+    The shrink is always bicubic (`down`), so every method starts from the SAME low-res
+    image. Only the enlarging method (`interp`) changes. That keeps baselines fair.
+    """
     size = target.size[0]
-    small = target.resize((size // scale, size // scale), INTERP[interp])
+    small = target.resize((size // scale, size // scale), INTERP[down])
     return small.resize((size, size), INTERP[interp])
 
 
