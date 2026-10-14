@@ -19,7 +19,11 @@ Suhas, B.Tech CSE (AI/ML). Knows ML basics. Wants:
 - Model: SRCNN, 3 conv layers, RGB in/out:
   conv 9x9, 3->64, ReLU -> conv 1x1, 64->32, ReLU -> conv 5x5, 32->3. "Same" padding (4, 0, 2).
   About 20k parameters. Output size = input size = 224x224.
-- Data: DIV2K_valid_HR (100 images), split 60/20/20 with a fixed seed.
+- Data (Stanford): DIV2K_valid_HR (100 images), split 60/20/20 with a fixed seed.
+- Data (OURS, teacher's instruction): TRAIN on all 800 DIV2K_train_HR images (0001-0800).
+  DIV2K_valid_HR (0801-0900) is split 50 val / 50 test with a fixed seed; never trained on.
+  Optional comparison run: train on 60 images only (Stanford-size).
+  Preprocess once (crop+resize to 224) and cache targets as one uint8 file on Drive.
   Target: center crop 800x800 -> resize to 224x224.
   Input: target -> downscale to 112x112 -> upscale back to 224x224.
   Interpolation: BICUBIC by default (Stanford's report says bicubic, poster says bilinear;
@@ -31,7 +35,8 @@ Suhas, B.Tech CSE (AI/ML). Knows ML basics. Wants:
   LR sweep {1e-2, 1e-3, 1e-4}: 1e-3 best.
 
 ## Extensions (after replication works)
-Train on DIV2K_train_HR (800 images) with larger batch; add SSIM; try to beat 26.44 dB.
+Main run already uses 800 images with Stanford's hyperparameters (only the data changes).
+Further: add SSIM; recompute baselines on our test split; try to beat 26.44 dB.
 
 ## Repo layout
 ```
@@ -47,8 +52,9 @@ Never commit: data/, checkpoints/, *.pth, *.zip. Data and checkpoints live on Go
   paths (pathlib) and commands. Code must also run unchanged on Colab (Linux, CUDA).
 - GitHub is the bridge. Colab only does `git pull` and runs the notebook.
 - Every script takes CLI args (argparse) for paths, epochs, batch size, lr, n_images, device,
-  so the same code does a tiny CPU smoke test locally and a full GPU run on Colab.
-- Before pushing: smoke test on CPU (e.g. 4 images, 1 epoch).
+  so the same code does a tiny CPU smoke test and a full GPU run on Colab.
+- NO local runs or installs on the laptop (low disk space). Laptop = edit files + git only.
+  Smoke tests (e.g. 4 images, 1 epoch, CPU) run in Claude's cloud sandbox or on Colab, before full runs.
 - On Colab: copy images to /content for speed; save checkpoints + results to Drive after
   every run (Colab disconnects). Drive folder:
   "Image Super-Resolution Via a Convolutional Neural Network-ML".
