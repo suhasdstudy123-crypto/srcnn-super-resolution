@@ -5,6 +5,9 @@ checkpoints/
 *.pt
 *.zip
 
+# Local-only notes for Claude Code (not part of the submission)
+CLAUDE.md
+
 # Reference papers kept locally only
 Garber_Grossman_Johnson-Yu*.pdf
 
