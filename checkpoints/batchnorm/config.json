@@ -1,0 +1,16 @@
+{
+  "cache_dir": "/content/drive/MyDrive/Image Super-Resolution Via a Convolutional Neural Network-ML/data/cache",
+  "train_dir": null,
+  "valid_dir": null,
+  "out_dir": "/content/drive/MyDrive/Image Super-Resolution Via a Convolutional Neural Network-ML/checkpoints",
+  "run_name": "batchnorm",
+  "epochs": 100,
+  "batch_size": 2,
+  "lr": 0.001,
+  "weight_decay": 0.0,
+  "use_bn": true,
+  "tanh_out": false,
+  "n_train": null,
+  "seed": 42,
+  "num_workers": 2
+}

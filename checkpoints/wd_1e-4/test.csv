@@ -1,0 +1,2 @@
+run,test_psnr,test_ssim,test_mse,best_val_psnr
+wd_1e-4,27.4594,0.892,0.0021,28.3404

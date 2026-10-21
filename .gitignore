@@ -1,9 +1,12 @@
-# Data and model weights (live on Google Drive, never in git)
+# Data: lives on Google Drive only (zips ~4 GB, cache over GitHub's 100 MB file limit)
 data/
-checkpoints/
-*.pth
-*.pt
 *.zip
+*.npy
+
+# Training state used only to resume a cut-off run; best.pth (the final weights) IS committed
+last.pth
+*.pt
+checkpoints/smoke/
 
 # Local-only notes for Claude Code (not part of the submission)
 CLAUDE.md

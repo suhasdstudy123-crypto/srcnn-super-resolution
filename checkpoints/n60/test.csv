@@ -1,0 +1,2 @@
+run,test_psnr,test_ssim,test_mse,best_val_psnr
+n60,26.9359,0.8756,0.0023,27.7619

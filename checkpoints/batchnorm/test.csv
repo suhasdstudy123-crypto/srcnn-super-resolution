@@ -1,0 +1,2 @@
+run,test_psnr,test_ssim,test_mse,best_val_psnr
+batchnorm,26.0563,0.8617,0.0027,26.7015
