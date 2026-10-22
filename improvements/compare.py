@@ -117,15 +117,18 @@ def plot_val_curves(args, runs, bicubic_val, out_file):
         ax.plot(h.epoch, h.val_psnr, color=color, lw=2)
         ends.append([h.val_psnr.iloc[-1], f"{label} ({h.val_psnr.max():.2f})", color, h.epoch.iloc[-1]])
     ends.sort()
+    lo, hi = ax.get_ylim()
+    gap = 0.045 * (hi - lo)                            # minimum label spacing: 4.5% of the y range
     for i in range(1, len(ends)):                      # nudge end labels apart so they don't overlap
-        ends[i][0] = max(ends[i][0], ends[i - 1][0] + 0.12)
+        ends[i][0] = max(ends[i][0], ends[i - 1][0] + gap)
     for y, text, color, x in ends:
-        ax.text(x + 1.5, y, text, color=INK, fontsize=9, va="center")
+        ax.text(x + 0.015 * x + 1, y, text, color=INK, fontsize=9, va="center")
         ax.plot([x], [y], "s", color=color, ms=6)
     ax.axhline(bicubic_val, color=INK, lw=1.5, ls="--")
     ax.text(2, bicubic_val + 0.08, f"bicubic {bicubic_val:.2f}", color=INK, fontsize=9)
     ax.set(xlabel="Epoch", ylabel="Val PSNR (dB)", title="Validation PSNR during training (best in brackets)")
-    ax.set_xlim(right=ax.get_xlim()[1] * 1.35)
+    last_epoch = max(x for _, _, _, x in ends)
+    ax.set_xlim(0, last_epoch * 1.32)                  # room on the right for the labels
     fig.tight_layout()
     fig.savefig(out_file)
     plt.close(fig)
