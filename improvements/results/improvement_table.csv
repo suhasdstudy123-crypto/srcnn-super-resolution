@@ -1,0 +1,6 @@
+method,test_psnr,test_ssim,best_val_psnr,params,sec_per_epoch,gain_vs_bicubic_db,gain_vs_stanford_db
+bicubic,26.408,0.8637,,,,0.0,-1.617
+Stanford SRCNN,28.025,0.9004,28.9245,20099,,1.617,0.0
+imp1 residual,28.2698,0.9043,29.1479,20099,7.759,1.8618,0.2448
+imp2 deep10,29.0483,0.9163,29.8405,298947,38.983,2.6403,1.0233
+imp3 deep10 + SSIM,28.984,0.9195,29.7961,298947,41.531,2.576,0.959

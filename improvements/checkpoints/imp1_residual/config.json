@@ -1,0 +1,15 @@
+{
+  "cache_dir": "/content/drive/MyDrive/Image Super-Resolution Via a Convolutional Neural Network-ML/data/cache",
+  "out_dir": "/content/drive/MyDrive/Image Super-Resolution Via a Convolutional Neural Network-ML/improvement-checkpoints",
+  "run_name": "imp1_residual",
+  "model": "residual",
+  "loss": "mse",
+  "ssim_weight": 0.01,
+  "epochs": 100,
+  "batch_size": 2,
+  "lr": 0.001,
+  "n_train": null,
+  "no_test": false,
+  "seed": 42,
+  "num_workers": 2
+}

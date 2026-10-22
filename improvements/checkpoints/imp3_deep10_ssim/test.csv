@@ -1,0 +1,2 @@
+run,test_psnr,test_ssim,test_mse,best_val_psnr
+imp3_deep10_ssim,28.984,0.9195,0.0015,29.7961

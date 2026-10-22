@@ -1,0 +1,2 @@
+run,test_psnr,test_ssim,test_mse,best_val_psnr
+imp1_residual,28.2698,0.9043,0.0017,29.1479
